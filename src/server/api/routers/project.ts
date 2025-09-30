@@ -18,7 +18,7 @@ export const projectRouter = createTRPCRouter({
             throw new Error("User not found");
         }
         const currentCredits = user?.credits || 0;
-        const fileCount= await checkCreditsCount(input.githubUrl,input.githubToken);
+        const fileCount= await checkCreditsCount(input.githubUrl);
 
         if(fileCount!>currentCredits){
     throw new Error("Insufficient credits");
