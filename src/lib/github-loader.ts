@@ -1,12 +1,13 @@
+import 'dotenv/config'
+
 import {GithubRepoLoader} from '@langchain/community/document_loaders/web/github'
 import { Document } from '@langchain/core/documents'
 import { generateEmbedding, summariseCode } from './gemini'
 import { db } from '@/server/db'
 import { Octokit } from 'octokit'
-import { log } from 'node:console'
 
 export const checkCreditsCount  = async(githubUrl:string,githubToken?:string)=>{
-    const octokit= new Octokit({auth:githubToken || process.env.GITHUB_TOKEN});
+    const octokit= new Octokit({auth:githubToken || process.env.GITHUB_TOKEN });
     
     async function getDefaultBranch(owner: string, repo: string) {
           const { data: repoData } = await octokit.rest.repos.get({ owner, repo });
@@ -49,7 +50,7 @@ export const checkCreditsCount  = async(githubUrl:string,githubToken?:string)=>{
 
 export const loadGithubRepo = async(githubUrl:string,githubToken?:string)=>{
     const loader = new GithubRepoLoader(githubUrl,{
-        accessToken:githubToken|| process.env.GITHUB_TOKEN,
+        accessToken:process.env.GITHUB_TOKEN || githubToken,
         branch:'main',
         ignoreFiles:[
             "node_modules/**",

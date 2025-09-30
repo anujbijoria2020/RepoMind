@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import { db } from '@/server/db';
 import {Octokit} from 'octokit'
 import { aiSummariseCommit } from './gemini';
