@@ -3,10 +3,13 @@ import {Octokit} from 'octokit'
 import { aiSummariseCommit } from './gemini';
 import axios from 'axios';
 
-export const octokit = new Octokit({
-    auth:process.env.GITHUB_TOKEN
-});
-
+function getOctokit() {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) {
+    throw new Error("Missing GITHUB_TOKEN in environment variables");
+  }
+  return new Octokit({ auth: token });
+}
 type Response= {
     commitHash:string,
     commitMessage:string,
@@ -17,6 +20,9 @@ type Response= {
 
 export const getCommitHashes = async (githubUrl:string):Promise<any> =>{
     const [owner,repo] = githubUrl.split("/").slice(-2);
+
+    const octokit=  getOctokit();
+    
     if(!owner||!repo){
         throw new Error("Invalid github url");
     }

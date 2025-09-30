@@ -3,10 +3,17 @@ import { Document } from '@langchain/core/documents'
 import { generateEmbedding, summariseCode } from './gemini'
 import { db } from '@/server/db'
 import { Octokit } from 'octokit'
-import { log } from 'node:console'
+
+function getOctokit() {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) {
+    throw new Error("Missing GITHUB_TOKEN in environment variables");
+  }
+  return new Octokit({ auth: token });
+}
 
 export const checkCreditsCount  = async(githubUrl:string)=>{
-    const octokit= new Octokit({auth:process.env.GITHUB_TOKEN});
+    const octokit= getOctokit();
     
     async function getDefaultBranch(owner: string, repo: string) {
           const { data: repoData } = await octokit.rest.repos.get({ owner, repo });
