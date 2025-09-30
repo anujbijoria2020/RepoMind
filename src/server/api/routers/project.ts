@@ -175,7 +175,7 @@ export const projectRouter = createTRPCRouter({
         }),
         checkCredits:protectedProcedure.input(z.object({githubUrl:z.string(),githubToken:z.string().optional()})).
         mutation(async({ctx,input})=>{
-            const fileCount = await checkCreditsCount(input.githubUrl,input.githubToken);
+            const fileCount = await checkCreditsCount(input.githubUrl);
             const userCredits = await ctx.db.user.findUnique({
                 where:{
                     id:ctx.user.userId!
