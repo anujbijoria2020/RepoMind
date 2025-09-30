@@ -5,8 +5,8 @@ import { db } from '@/server/db'
 import { Octokit } from 'octokit'
 import { log } from 'node:console'
 
-export const checkCreditsCount  = async(githubUrl:string,githubToken?:string)=>{
-    const octokit= new Octokit({auth:githubToken});
+export const checkCreditsCount  = async(githubUrl:string)=>{
+    const octokit= new Octokit({auth:process.env.GITHUB_TOKEN});
     
     async function getDefaultBranch(owner: string, repo: string) {
           const { data: repoData } = await octokit.rest.repos.get({ owner, repo });
