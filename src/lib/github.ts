@@ -4,9 +4,13 @@ import {Octokit} from 'octokit'
 import { aiSummariseCommit } from './gemini';
 import axios from 'axios';
 
-export const octokit = new Octokit({
-    auth:process.env.GITHUB_TOKEN 
-});
+
+export const getOctokit = () => {
+  return new Octokit({ auth: process.env.GITHUB_TOKEN });
+};
+
+
+export const octokit = getOctokit();
 
 type Response= {
     commitHash:string,

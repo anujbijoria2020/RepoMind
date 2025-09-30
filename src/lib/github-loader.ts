@@ -6,8 +6,13 @@ import { generateEmbedding, summariseCode } from './gemini'
 import { db } from '@/server/db'
 import { Octokit } from 'octokit'
 
+
+export const getOctokit = (githubToken?:string) => {
+  return new Octokit({ auth: process.env.GITHUB_TOKEN || githubToken});
+};
+
 export const checkCreditsCount  = async(githubUrl:string,githubToken?:string)=>{
-    const octokit= new Octokit({auth:githubToken || process.env.GITHUB_TOKEN });
+    const octokit=getOctokit(githubToken);
     
     async function getDefaultBranch(owner: string, repo: string) {
           const { data: repoData } = await octokit.rest.repos.get({ owner, repo });
