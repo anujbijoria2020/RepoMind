@@ -2,54 +2,58 @@ import z from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 import razorPayInstance from "@/lib/razorpay";
 import crypto from 'crypto';
-import { User } from "lucide-react";
+
 
 
 export const PaymentRouter = createTRPCRouter({
-createOrder:protectedProcedure.input(z.object({credits:z.number()})).mutation(async({ctx,input})=>{
-   console.log("user :",ctx.user.userId," credits:",input.credits);
-   console.log("razorpay keys :",process.env.RAZORPAY_KEY_ID,"  ",process.env.RAZORPAY_KEY_SECRET);
-   
-    const amountINR = (input.credits*2);
-    const amountPaise= Math.round(amountINR*100)
 
-    const receipt = `rcpt_${ctx.user.userId?.slice(0,10)}_${Date.now()}`
-    
+createOrder: protectedProcedure
+.input(z.object({ credits: z.number() }))
+.mutation(async ({ ctx, input }) => {
+    console.log("user :", ctx.user.userId, " credits:", input.credits);
+    console.log("razorpay keys :", process.env.RAZORPAY_KEY_ID, "  ", process.env.RAZORPAY_KEY_SECRET);
 
-    console.log("recipt",receipt);
+    const amountINR = input.credits * 2;
+    const amountPaise = Math.round(amountINR * 100);
 
-try{
-    const order = await razorPayInstance.orders.create({
-        amount:amountPaise,
-        currency:"INR",
+    const receipt = `rcpt_${ctx.user.userId?.slice(0, 10)}_${Date.now()}`;
+
+    console.log("recipt", receipt);
+
+    try {
+      const order = await razorPayInstance.orders.create({
+        amount: amountPaise,
+        currency: "INR",
         receipt,
-        payment_capture:true,
-        notes:{userId:ctx.user.userId,credits:String(input.credits)}
-    });
+        payment_capture: true,
+        notes: { userId: ctx.user.userId, credits: String(input.credits) },
+      });
 
-    console.log("order created:",order);
-    await ctx.db.payment.create({
-        data:{
-            userId:ctx.user.userId!,
-            orderId:order.id,
-            amount:order.amount as number,
-           currency:order.currency,
-           credits:input.credits,
-           status:"created",
-           reciept:receipt as string,
-        }
-    });
+      console.log("order created:", order);
+      await ctx.db.payment.create({
+        data: {
+          userId: ctx.user.userId!,
+          orderId: order.id,
+          amount: order.amount as number,
+          currency: order.currency,
+          credits: input.credits,
+          status: "created",
+          reciept: receipt as string,
+        },
+      });
 
-    return {
-        orderId:order.id,
-        amount:order.amount,
-        currency:order.currency,
-        key:process.env.RAZORPAY_KEY_ID!
+      return {
+        orderId: order.id,
+        amount: order.amount,
+        currency: order.currency,
+        key: process.env.RAZORPAY_KEY_ID!,
+      };
+    } catch (error) {
+      console.error("error from createOrder Trpc", error);
+      throw new Error(`Failed to create Razorpay order: ${(error as Error).message || 'Unknown Error'}`);
     }
-}catch(error){
-    console.error("error from createOrder Trpc",error);
-}
 }),
+
 verifyPayment:protectedProcedure.input(z.object(
 {    razorpay_payment_id:z.string(),
     razorpay_order_id:z.string(),
