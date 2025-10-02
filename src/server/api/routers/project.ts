@@ -121,6 +121,9 @@ export const projectRouter = createTRPCRouter({
                 },
                 include:{
                     issues:true
+                },
+                orderBy:{
+                    createdAt:"desc"
                 }
             })
         }),

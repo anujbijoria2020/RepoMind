@@ -13,7 +13,7 @@ import useRefetch from '@/hooks/use-refetch';
 const Page = () => {
   const { projectId } = useProject();
   const { data: meetings, isLoading } = api.project.getMeetings.useQuery({ projectId }, {
-    refetchInterval: 10000
+    refetchInterval: 5000
   });
 
   const deleteMeeting = api.project.deleteMeeting.useMutation();
