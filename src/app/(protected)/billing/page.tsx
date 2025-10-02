@@ -80,7 +80,7 @@ const BillingPage = () => {
 
   return (
     <div>
-      <h1 className="text-xl font-semibold">Billing</h1>
+      <h1 className="text-xl font-semibold dark:text-white">Billing</h1>
       <div className="h-2" />
       <p className="text-sm text-gray-500">You currently have {user?.credits} credits.</p>
 

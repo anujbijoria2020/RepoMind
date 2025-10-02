@@ -8,6 +8,7 @@ import {ClerkProvider} from '@clerk/nextjs'
 import { Toaster } from "sonner";
 import NProgress from 'nprogress'
 import NProgressProvider from "./_components/NProgressProvider";
+import { ThemeProvider } from "./_components/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -26,11 +27,17 @@ export default function RootLayout({
 
   return (
 <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
-      <html lang="en" className={`${geist.variable}`}>
+      <html lang="en" className={`${geist.variable}`} suppressHydrationWarning>
       <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+   <ThemeProvider
+    attribute={"class"}
+     defaultTheme="system"
+     enableSystem
+   >
+         <TRPCReactProvider>{children}</TRPCReactProvider>
         <Toaster richColors/>
         <NProgressProvider/>
+   </ThemeProvider>
       </body>
     </html>
 </ClerkProvider>

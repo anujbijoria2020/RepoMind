@@ -23,7 +23,7 @@ const IssuesList = ({ meetingId }: props) => {
       refetchInterval: 10000,
     },
   );
-  if(isLoading) return <div>Loading...</div>
+  if(isLoading) return <div className="dark:text-white">Loading...</div>
   return (
     <>
       <div className="p-8">
@@ -33,7 +33,7 @@ const IssuesList = ({ meetingId }: props) => {
               <VideoIcon className="h-6 w-6" />
             </div>
             <h1>
-              <div className="loading-6 text-sm text-gray-600">
+              <div className="loading-6 text-sm text-gray-600 dark:text-white">
                 Meeting on {""}
                 {meeting?.createdAt.toLocaleDateString()}
               </div>
@@ -65,19 +65,19 @@ function IssueCard({
 
   return (
     <>
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
+      <Dialog open={open} onOpenChange={setOpen} >
+        <DialogContent className="dark:text-white">
           <DialogHeader>
-            <DialogTitle>{issue.gist}</DialogTitle>
+            <DialogTitle className="dark:text-white">{issue.gist}</DialogTitle>
             <DialogDescription>
               {issue.createdAt.toLocaleDateString()}
             </DialogDescription>
-            <p className="text-gray-600">{issue.headline}</p>
+            <p className="text-gray-600 dark:text-gray-200">{issue.headline}</p>
               <blockquote className="mt-2 border-l-4 border-gray-300 p-4">
                 <span className="text-sm text-gray-600">
                   {issue.start}-{issue.end}
                 </span>
-                <p className="leading-relaxed font-medium text-gray-900 italic">
+                <p className="leading-relaxed font-medium text-gray-900 italic dark:text-gray-100">
                   {issue.summary}
                 </p>
               </blockquote>

@@ -24,7 +24,7 @@ const Page = () => {
       <MeetingCard />
 
       <div className="flex items-center justify-between flex-wrap gap-4">
-        <h1 className="text-2xl font-bold text-gray-800">Meetings</h1>
+        <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Meetings</h1>
       </div>
 
       {isLoading && (
@@ -68,7 +68,9 @@ const Page = () => {
             {/* Actions */}
             <div className="flex flex-wrap gap-2">
               <Link href={`/meetings/${meeting.id}`}>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm"
+                className='dark:bg-black'
+                >
                   View
                 </Button>
               </Link>

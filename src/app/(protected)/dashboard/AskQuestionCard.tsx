@@ -107,7 +107,7 @@ Save Answer
             onChange={e=>{setQuestion(e.target.value)}}
             />
             <div className="h-4"></div>
-            <Button type="submit">Ask RepoMind</Button>
+            <Button type="submit" className="">Ask RepoMind</Button>
           </form>
         </CardContent>
       </Card>

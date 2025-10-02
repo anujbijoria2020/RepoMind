@@ -80,7 +80,7 @@ const refetch = useRefetch();
       {!isUploading  && (
         <>
           <Presentation className="h-10 w-10 animate-bounce" />
-          <h3 className="mt-2 text-sm font-semibold text-gray-900">Upload Audio</h3>
+          <h3 className="mt-2 text-sm font-semibold text-gray-900 dark:text-white text-center">Upload Your Meeting</h3>
           <p className="mt-1 text-center text-sm text-gray-500">
             Drag & drop your audio file here or click below to select
           </p>
@@ -103,7 +103,7 @@ const refetch = useRefetch();
         value={progress}
         text={`${progress}%`}
         styles={buildStyles({
-          pathColor: "#2563eb",
+          pathColor: "#2563eb dark:color-",
           textColor: "#2563eb",
           textSize: '20px',
           trailColor: '#e5e7eb'

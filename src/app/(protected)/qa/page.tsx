@@ -18,7 +18,7 @@ const Page = () => {
     <div className="p-4 md:p-6 lg:p-8 space-y-6">
       <AskQuestionCard />
 
-      <h1 className="text-xl font-semibold text-gray-800">Saved Questions</h1>
+      <h1 className="text-xl font-semibold text-gray-800 dark:text-white">Saved Questions</h1>
 
       <div className="flex flex-col gap-3">
         {questions?.map((q, index) => (
@@ -45,12 +45,12 @@ const Page = () => {
             {question && questionIndex === index && (
               <SheetContent className="sm:max-w-[90vw] w-full">
                 <SheetHeader className="overflow-y-auto max-h-[80vh]">
-                  <SheetTitle className="text-lg font-semibold">{question.question}</SheetTitle>
+                  <SheetTitle className="text-lg font-semibold dark:text-white">{question.question}</SheetTitle>
 
                   <div className="mt-4 overflow-y-auto max-h-[50vh]">
                     <MDEditor.Markdown
                       source={question.answer}
-                      className="overflow-y-auto rounded-xl p-3 bg-gray-50 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:rounded-2xl"
+                      className="overflow-y-auto rounded-xl p-3 bg-gray-50[&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:rounded-2xl"
                     />
                   </div>
 

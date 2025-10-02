@@ -6,9 +6,9 @@ const RecentTransactions = () => {
 
   return (
     <div className="flex flex-col gap-6 p-6">
-      <h2 className="text-2xl font-bold text-gray-800">Recent Transactions</h2>
+      <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Recent Transactions</h2>
 
-      {isLoading && <div className="text-gray-500">Loading transactions...</div>}
+      {isLoading && <div className="text-gray-500 dark:text-white">Loading transactions...</div>}
 
       {!isLoading && transactions?.length === 0 && (
         <div className="text-gray-500">No transactions found.</div>
@@ -29,11 +29,11 @@ const RecentTransactions = () => {
                 `}
               >
                 <div className="flex flex-col gap-1">
-                  <span className="text-sm text-gray-600">
+                  <span className="text-sm text-gray-600 dark:text-gray-300">
                     Transaction ID:{" "}
-                    <span className="font-medium text-gray-800">{item.paymentId}</span>
+                    <span className="font-medium text-gray-800 dark:text-gray-400">{item.paymentId}</span>
                   </span>
-                  <span className="text-sm text-gray-700">
+                  <span className="text-sm text-gray-700 dark:text-white">
                     Amount:{" "}
                     <span className="font-medium">
                       {(item.amount / 100).toFixed(2)} {item.currency}
@@ -42,7 +42,7 @@ const RecentTransactions = () => {
                 </div>
 
                 <div className="flex flex-col items-end gap-1">
-                  <span className="text-sm text-gray-600">
+                  <span className="text-sm text-gray-600 dark:text-gray-500">
                     {new Date(item.createdAt).toLocaleDateString("en-GB", {
                       day: "2-digit",
                       month: "2-digit",

@@ -18,13 +18,13 @@ const CodeReferences = ({ fileReferences }: Props) => {
   return (
     <div className="max-w-[70vw]">
       <Tabs.Root value={tab} onValueChange={setTab}>
-        <Tabs.List className="overflow-x-scroll flex gap-2 bg-gray-200 p-1 rounded-md">
+        <Tabs.List className="overflow-x-scroll flex gap-2 bg-gray-800 p-1 rounded-md">
           {fileReferences.map((file) => (
             <Tabs.Trigger
               key={file.fileName}
               value={file.fileName}
               className={cn(
-                "px-3 py-1.5 text-sm font-medium rounded-md transition-colors whitespace-nowrap text-muted-foreground hover:bg-muted",
+                "px-3 py-1.5 text-sm font-medium rounded-md transition-colors whitespace-nowrap text-muted-foreground hover:bg-muted dark:text-white",
                 { "bg-primary text-primary-foreground": tab === file.fileName }
               )}
             >

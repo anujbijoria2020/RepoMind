@@ -62,7 +62,7 @@ const Page = () => {
       </div>
 
       <div className="mt-6">
-        <h1 className="font-semibold text-2xl">Link your Github Repository</h1>
+        <h1 className="font-semibold text-2xl dark:text-white">Link your Github Repository</h1>
         <p className="text-sm text-muted-foreground">
           Enter the URL of your repository to link it to RepoMind
         </p>
