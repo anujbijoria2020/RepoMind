@@ -41,7 +41,7 @@ const BillingPage = () => {
     try {
      
       const res = await createOrder.mutateAsync({ credits: creditsToBuyAmount });
-
+    console.log("response from payment is :" ,res);
       const options = {
         key: res?.key,
         amount: res?.amount,
