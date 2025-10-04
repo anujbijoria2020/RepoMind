@@ -2,12 +2,12 @@
 import { Button } from "@/components/ui/button";
 import { Sidebar ,SidebarHeader,SidebarContent,SidebarGroup,SidebarGroupLabel,SidebarGroupContent, SidebarMenuItem, SidebarMenuButton, SidebarMenu, useSidebar} from "@/components/ui/sidebar";
 import useProject from "@/hooks/use-project";
-import useRefetch from "@/hooks/use-refetch";
 import { cn } from "@/lib/utils";
 import { Bot, CreditCard, LayoutDashboard, Plus, Presentation } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+
 
 const items = [
    { title:'Dashboard',
@@ -28,13 +28,11 @@ const items = [
    }
 ]
 
-
-
 export function AppSideBar(){
-    const pathname = usePathname();
+const pathname = usePathname();
 const {open} = useSidebar();
 const {projects,projectId,setProjectId} = useProject();
-const refetch = useRefetch();
+const router = useRouter();
 
 return(
     <div>
@@ -80,7 +78,8 @@ return(
                                 name}>
                                     <SidebarMenuButton asChild>
                                        <div onClick={()=>{
-                                        setProjectId(project.id)
+                                        setProjectId(project.id);
+                                        router.push("/dashboard");
                                        }}>
                                         <div className={cn('rounded-sm border size-6 flex items-center justify-center text-sm bg-white text-primary',{
                                             'bg-primary text-white':project.id===projectId

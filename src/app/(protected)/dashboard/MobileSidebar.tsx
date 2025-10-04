@@ -7,6 +7,7 @@ import { LayoutDashboard, Bot, Presentation, CreditCard, Plus } from "lucide-rea
 import Link from "next/link";
 import useProject from "@/hooks/use-project";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 const items = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
@@ -17,6 +18,13 @@ const items = [
 
 export default function MobileAppSidebar() {
   const { projects, projectId, setProjectId } = useProject();
+const router = useRouter();
+
+const hanldeProjectClick = (projectId:any)=>{
+   setProjectId(projectId);
+   router.push("/dashboard");
+                    
+}
 
   return (
     <div className="sm:hidden fixed top-4 left-4 z-50">
@@ -48,7 +56,9 @@ export default function MobileAppSidebar() {
             {projects?.map((project) => (
               <DropdownMenuItem key={project.id} asChild>
                 <div
-                  onClick={() => setProjectId(project.id)}
+                  onClick={() => 
+                   hanldeProjectClick(project.id)
+                  }
                   className={cn(
                     "flex items-center gap-2 p-2 rounded cursor-pointer",
                     project.id === projectId ? "bg-primary text-white" : "hover:bg-gray-100"
